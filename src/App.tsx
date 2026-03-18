@@ -1,8 +1,3 @@
-/**
- * @license
- * SPDX-License-Identifier: Apache-2.0
- */
-
 import { motion } from "motion/react";
 import { 
   Check, 
@@ -10,10 +5,7 @@ import {
   Home, 
   BookOpen, 
   ArrowRight, 
-  Instagram, 
-  Mail, 
-  ShieldCheck,
-  MessageCircle
+  ShieldCheck
 } from "lucide-react";
 
 const IMAGES = {
@@ -27,6 +19,8 @@ const IMAGES = {
 };
 
 export default function App() {
+  const currentYear = new Date().getFullYear();
+
   return (
     <div className="min-h-screen">
       {/* Header */}
@@ -115,6 +109,7 @@ export default function App() {
                     src={src} 
                     alt={`Client Transformation ${index + 1}`} 
                     className="rounded-2xl w-full grayscale-[50%] hover:grayscale-0 transition duration-500"
+                    loading="lazy"
                     referrerPolicy="no-referrer"
                   />
                 </motion.div>
@@ -302,10 +297,62 @@ export default function App() {
                 <p className="text-sm font-medium flex items-center gap-2"><ShieldCheck className="w-4 h-4 text-brand-accent" /> Monthly Progress Review</p>
                 <p className="text-sm font-medium flex items-center gap-2"><ShieldCheck className="w-4 h-4 text-brand-accent" /> Lifestyle Habit Coaching</p>
               </div>
-              <button className="block w-full bg-brand-dark text-white py-5 rounded-2xl font-bold shadow-xl hover:bg-brand-accent transition-colors duration-300">
-                Secure My Slot Now
-              </button>
+              <a
+                href="#next-steps"
+                className="inline-flex w-full items-center justify-center gap-2 bg-brand-dark py-5 rounded-2xl font-bold text-white shadow-xl hover:bg-brand-accent transition-colors duration-300"
+              >
+                See What Happens Next
+                <ArrowRight className="w-5 h-5" />
+              </a>
             </motion.div>
+          </div>
+        </section>
+
+        <section id="next-steps" className="py-24 px-6 bg-brand-primary">
+          <div className="container mx-auto">
+            <div className="text-center max-w-2xl mx-auto mb-16">
+              <span className="text-brand-accent font-semibold tracking-widest uppercase text-xs mb-4 block">
+                Your Journey
+              </span>
+              <h2 className="font-display text-3xl md:text-4xl font-extrabold mb-4">What Happens After You Join</h2>
+              <p className="text-gray-500">
+                Every program is designed to turn motivation into a repeatable routine with clear guidance from day one.
+              </p>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              {[
+                {
+                  step: "01",
+                  title: "Choose Your Program",
+                  desc: "Start with the plan that fits your current routine, preferred workout style, and nutrition goals.",
+                },
+                {
+                  step: "02",
+                  title: "Receive Your Plan",
+                  desc: "Get a structured roadmap with workouts, meal guidance, and a clear 28-day focus for your progress.",
+                },
+                {
+                  step: "03",
+                  title: "Build Consistency",
+                  desc: "Track your wins weekly, adjust where needed, and keep momentum with habit-based support.",
+                },
+              ].map((item, index) => (
+                <motion.article
+                  key={item.step}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: index * 0.1 }}
+                  className="rounded-[2rem] border border-pink-100 bg-white p-8 shadow-sm"
+                >
+                  <div className="mb-6 flex h-12 w-12 items-center justify-center rounded-xl bg-pink-50 font-display text-lg font-bold text-brand-accent">
+                    {item.step}
+                  </div>
+                  <h3 className="font-display text-xl font-bold mb-3">{item.title}</h3>
+                  <p className="text-sm leading-6 text-gray-600">{item.desc}</p>
+                </motion.article>
+              ))}
+            </div>
           </div>
         </section>
 
@@ -316,32 +363,48 @@ export default function App() {
             <h2 className="font-display text-4xl font-bold mb-6">Ready to transform?</h2>
             <p className="text-gray-300 mb-10 max-w-sm mx-auto">Start your journey today and feel the difference in your mind and body.</p>
             <a 
-              href="https://wa.me/#" 
+              href="#next-steps"
               className="inline-flex items-center gap-3 bg-white text-brand-dark px-10 py-5 rounded-full font-bold text-lg hover:scale-105 transition-transform duration-300"
             >
-              <MessageCircle className="w-6 h-6 text-green-500" />
-              Join Now on WhatsApp
+              Review Your Next Steps
+              <ArrowRight className="w-6 h-6 text-brand-accent" />
             </a>
+          </div>
+        </section>
+
+        <section id="privacy" className="py-16 px-6 bg-white border-t border-pink-100">
+          <div className="container mx-auto max-w-3xl text-center">
+            <span className="text-brand-accent font-semibold tracking-widest uppercase text-xs mb-4 block">
+              Privacy
+            </span>
+            <h2 className="font-display text-3xl font-bold mb-4">Simple and transparent</h2>
+            <p className="text-gray-600 leading-7">
+              This version of the site is frontend-only. It does not collect personal data, store form submissions,
+              or require any API keys to run. If you later add forms, analytics, or third-party integrations, update
+              this section to match the live experience.
+            </p>
           </div>
         </section>
       </main>
 
       {/* Footer */}
-      <footer className="py-12 px-6 bg-brand-primary border-t border-pink-100">
+      <footer className="py-12 px-6 bg-brand-primary">
         <div className="container mx-auto flex flex-col items-center">
           <div className="font-display font-extrabold text-xl mb-8">
             STAYFIT <span className="text-brand-accent italic">WITH RIDDHI</span>
           </div>
-          <div className="flex gap-6 mb-8">
-            <a href="#" className="text-gray-400 hover:text-brand-accent transition-colors flex items-center gap-1">
-              <Instagram className="w-4 h-4" /> Instagram
+          <div className="flex flex-wrap justify-center gap-6 mb-8 text-sm font-medium">
+            <a href="#programs" className="text-gray-500 hover:text-brand-accent transition-colors">
+              Programs
             </a>
-            <a href="#" className="text-gray-400 hover:text-brand-accent transition-colors flex items-center gap-1">
-              <Mail className="w-4 h-4" /> Contact
+            <a href="#pricing" className="text-gray-500 hover:text-brand-accent transition-colors">
+              Pricing
             </a>
-            <a href="#" className="text-gray-400 hover:text-brand-accent transition-colors">Privacy Policy</a>
+            <a href="#privacy" className="text-gray-500 hover:text-brand-accent transition-colors">
+              Privacy
+            </a>
           </div>
-          <p className="text-[10px] text-gray-400 uppercase tracking-widest">© 2023 StayFit with Riddhi. All Rights Reserved.</p>
+          <p className="text-[10px] text-gray-400 uppercase tracking-widest">© {currentYear} StayFit with Riddhi. All Rights Reserved.</p>
         </div>
       </footer>
     </div>
